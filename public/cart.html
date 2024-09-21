@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Your Shopping Cart</h1>
+        </header>
+        
+        <div class="cart-content">
+            <div id="cart-items" class="cart-items"></div>
+            <div id="payment-button-container"></div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Modern Marketplace</p>
+        </footer>
+    </div>
+
+    <script>
+        // Fetch the cart items from the server
+        fetch('/cart')
+            .then(response => response.json())
+            .then(cart => {
+                const cartItemsDiv = document.getElementById('cart-items');
+                cart.items.forEach(item => {
+                    cartItemsDiv.innerHTML += `<div class="cart-item">
+                        <p>${item.name} - $${item.price} x ${item.quantity}</p>
+                    </div>`;
+                });
+            })
+            .catch(error => console.error('Error fetching cart:', error));
+
+        // Set PayPal as the payment provider for this example
+        const paypalScript = document.createElement('script');
+        paypalScript.src = "https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD";
+        document.body.appendChild(paypalScript);
+
+        paypalScript.onload = () => {
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return fetch('/cart/create-order', { method: 'POST' })
+                        .then(response => response.json())
+                        .then(orderData => orderData.orderID);
+                },
+                onApprove: function(data, actions) {
+                    return fetch(`/cart/capture-order?orderID=${data.orderID}`, { method: 'POST' })
+                        .then(response => response.json())
+                        .then(() => window.location.href = '/success');
+                }
+            }).render('#payment-button-container');
+        };
+    </script>
+</body>
+</html>

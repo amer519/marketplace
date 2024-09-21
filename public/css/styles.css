@@ -1,0 +1,173 @@
+/* Google Font: Poppins */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f8fc;
+    color: #333;
+}
+
+/* Container and Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Ensure content is centered */
+    min-height: 100vh;
+}
+
+/* Header Styling */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    color: #4a4a4a;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.header p {
+    font-size: 1.2rem;
+    color: #777;
+}
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Flexible grid */
+    gap: 20px;
+    width: 100%; /* Ensure the grid takes full width */
+    justify-items: center; /* Center items within the grid cells */
+}
+
+/* Product Card */
+.product-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    width: 100%; /* Ensure card takes up full width of its grid cell */
+    max-width: 300px; /* Ensure cards have a consistent max width */
+    height: auto;
+    overflow: hidden; /* Avoid overflow of content */
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+}
+
+/* Product Image */
+.product-image {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    max-height: 200px; /* Constrain the maximum height of the image */
+    object-fit: cover; /* Ensure the image fills the area without distortion */
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+/* Product Title */
+.product-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Product Price */
+.product-price {
+    font-size: 1.2rem;
+    color: #4caf50;
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.btn-primary:hover {
+    background-color: #45a049;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .product-title {
+        font-size: 1.3rem;
+    }
+
+    .product-price {
+        font-size: 1.1rem;
+    }
+}
+
+
+/* Product Detail Page */
+.product-detail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.product-image-large {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.product-info {
+    text-align: center;
+}
+
+.product-info h1 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    color: #4caf50;
+    margin-bottom: 20px;
+}
