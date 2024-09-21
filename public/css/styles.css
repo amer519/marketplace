@@ -3,9 +3,10 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f7f8fc;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Gradient background */
     color: #333;
 }
+
 
 /* Container and Layout */
 .container {
@@ -103,7 +104,9 @@ body {
 
 .btn-primary:hover {
     background-color: #45a049;
+    transform: translateY(-2px); /* Add slight lift effect on hover */
 }
+
 
 .btn:active {
     transform: scale(0.98);
@@ -171,3 +174,76 @@ footer p {
     color: #4caf50;
     margin-bottom: 20px;
 }
+
+/* Consistent Product Image Size on Product Detail Page */
+.product-image-large {
+    width: 300px; /* Fixed width for consistency */
+    height: 300px; /* Fixed height for consistency */
+    object-fit: cover; /* Maintain aspect ratio and prevent distortion */
+    border-radius: 12px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Add hover effect for engagement */
+.product-image-large:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Enhance Product Detail Layout */
+.product-detail {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Modern shadow */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin: auto;
+}
+
+/* Professional Background */
+body {
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Subtle gradient background */
+    color: #333;
+}
+
+/* Button Hover Animation */
+.btn-primary:hover {
+    background-color: #45a049;
+    transform: translateY(-2px); /* Add slight lift effect on hover */
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 768px) {
+    .product-detail {
+        padding: 20px;
+    }
+
+    .product-image-large {
+        width: 100%; /* Adjust image size for smaller screens */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    .product-info h1 {
+        font-size: 1.5rem; /* Slightly smaller for mobile */
+    }
+
+    .product-price {
+        font-size: 1.3rem;
+    }
+}
+
+.product-detail {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Keep modern shadow */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin: auto;
+}
+
