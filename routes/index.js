@@ -2,11 +2,8 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 
-// Simulated product data
-const products = [
-    { id: 1, name: 'Product 1', price: 10.00 },
-    { id: 2, name: 'Product 2', price: 20.00 },
-];
+// Import the products array from the data/products.js file
+const products = require('../data/products');
 
 // Serve the product page
 router.get('/product/:id', (req, res) => {
@@ -17,6 +14,5 @@ router.get('/product/:id', (req, res) => {
         res.status(404).send('Product not found');
     }
 });
-
 
 module.exports = router;

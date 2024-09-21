@@ -42,21 +42,21 @@
         };
 
         // Get product ID from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id');
+        const path = window.location.pathname; // e.g., /product/1
+        const productId = path.split('/').pop(); // Get the last part of the URL, which is the product ID
 
         // Fetch the product data based on the product ID
-        const product = products[productId];
+        const product = products[productId]
 
         // Update the HTML elements with product details
         if (product) {
-            document.getElementById('product-title').innerText = product.title;
-            document.getElementById('product-description').innerText = product.description;
-            document.getElementById('product-price').innerText = product.price;
-            document.getElementById('product-image').src = product.image;
-        } else {
-            document.getElementById('product-title').innerText = 'Product Not Found';
-        }
+    document.getElementById('product-title').innerText = product.title;
+    document.getElementById('product-description').innerText = product.description;
+    document.getElementById('product-price').innerText = product.price;
+    document.getElementById('product-image').src = product.image;
+} else {
+    document.getElementById('product-title').innerText = 'Product Not Found';
+}
     </script>
 </body>
 </html>
