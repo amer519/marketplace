@@ -3,61 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Main CSS -->
+    <title>Your Cart</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Your Shopping Cart</h1>
-        </header>
-        
-        <div class="cart-content">
-            <div id="cart-items" class="cart-items"></div>
-            <div id="payment-button-container"></div>
-        </div>
+    <!-- Notification Container (if you want to show notifications on the cart page) -->
+    <div id="notification" class="notification"></div>
 
-        <footer>
-            <p>&copy; 2024 Modern Marketplace</p>
-        </footer>
+    <!-- Cart Button (if you have a cart button on the page) -->
+    <!-- ... (include your cart button code here) ... -->
+
+    <div class="container">
+        <div class="cart-container">
+            <header class="cart-header">
+                <h1>Your Cart</h1>
+                <a href="/">Continue Shopping</a>
+            </header>
+
+            <!-- Cart Items Section -->
+            <section id="cart-items">
+                <div id="cart-content"></div>
+            </section>
+
+            <!-- Cart Total -->
+            <p id="cart-total" class="cart-total"></p>
+
+            <!-- Checkout Button -->
+            <div class="checkout-container">
+                <a href="/checkout" class="btn btn-primary">Proceed to Checkout</a>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // Fetch the cart items from the server
-        fetch('/cart')
-            .then(response => response.json())
-            .then(cart => {
-                const cartItemsDiv = document.getElementById('cart-items');
-                cart.items.forEach(item => {
-                    cartItemsDiv.innerHTML += `<div class="cart-item">
-                        <p>${item.name} - $${item.price} x ${item.quantity}</p>
-                    </div>`;
-                });
-            })
-            .catch(error => console.error('Error fetching cart:', error));
-
-        // Set PayPal as the payment provider for this example
-        const paypalScript = document.createElement('script');
-        paypalScript.src = "https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD";
-        document.body.appendChild(paypalScript);
-
-        paypalScript.onload = () => {
-            paypal.Buttons({
-                createOrder: function(data, actions) {
-                    return fetch('/cart/create-order', { method: 'POST' })
-                        .then(response => response.json())
-                        .then(orderData => orderData.orderID);
-                },
-                onApprove: function(data, actions) {
-                    return fetch(`/cart/capture-order?orderID=${data.orderID}`, { method: 'POST' })
-                        .then(response => response.json())
-                        .then(() => window.location.href = '/success');
-                }
-            }).render('#payment-button-container');
-        };
-    </script>
+    <!-- Link to the cart.js file for functionality -->
+    <script src="/js/cart.js"></script>
 </body>
 </html>

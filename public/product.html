@@ -1,24 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Page</title>
+    <!-- ... existing head content ... -->
     <link rel="stylesheet" href="/css/styles.css">
+    <!-- External CSS (Font Awesome) -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="..."
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
 </head>
 <body>
-    <div class="container">
-        <section id="product-detail" class="product-detail">
-            <img id="product-image" src="/images/product1.jpg" alt="Product Image" class="product-image-large">
-            <div class="product-info">
-                <h1 id="product-title">Product 1</h1>
-                <p id="product-description">This is the description for Product 1.</p>
-                <p id="product-price" class="product-price">$10.00</p>
-                <button id="add-to-cart" class="btn btn-primary">Add to Cart</button>
-            </div>
-        </section>
+    <!-- Notification Container -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Cart Button -->
+    <div class="cart-button-container">
+        <a href="/cart.html" class="cart-button">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-counter">0</span>
+        </a>
     </div>
 
+    <!-- Product Detail Section -->
+    <div class="container">
+        <div class="product-detail">
+            <img id="product-image" src="/images/product1.jpg" alt="Product Image" class="product-detail-image">
+            <div class="product-detail-info">
+                <h1 id="product-title" class="product-detail-title">Product Title</h1>
+                <p id="product-description" class="product-detail-description">Product Description</p>
+                <p id="product-price" class="product-detail-price">$0.00</p>
+                <button id="add-to-cart" class="btn btn-primary">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the product.js script -->
     <script src="/js/product.js"></script>
 </body>
 </html>

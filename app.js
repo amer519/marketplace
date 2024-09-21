@@ -3,7 +3,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
-const cartRouter = require('./routes/cart');
 
 const app = express();
 
@@ -13,7 +12,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/', indexRouter);
-app.use('/cart', cartRouter);
+
+// Route to serve cart.html when accessing /cart
+app.get('/cart', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/cart.html'));
+});
 
 // Success and Cancel routes (for PayPal/Stripe)
 app.get('/success', (req, res) => {
