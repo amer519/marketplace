@@ -1,7 +1,15 @@
 // Example product data
 const products = [
-    { id: 1, name: 'Product 1', price: 10.00, image: '/images/product1.jpg' },
-    { id: 2, name: 'Product 2', price: 20.00, image: '/images/product2.jpg' }
+    { id: 1, name: 'Spider', price: 10.00, image: '/images/product1.jpg' },
+    { id: 2, name: 'The Iron', price: 20.00, image: '/images/product2.jpg' },
+    { id: 3, name: 'Son Goku', price: 10.00, image: '/images/product3.jpg' },
+    { id: 4, name: 'Groo Groo', price: 20.00, image: '/images/product4.png' },
+    { id: 5, name: 'Lil Rugrat', price: 10.00, image: '/images/product5.jpg' },
+    { id: 6, name: 'Togi-egg', price: 20.00, image: '/images/product6.jpg' },
+    { id: 7, name: 'Nino', price: 10.00, image: '/images/product7.jpg' },
+    { id: 8, name: 'Oreo', price: 20.00, image: '/images/product8.jpg' },
+    { id: 9, name: 'Smarto', price: 10.00, image: '/images/product9.png' },
+    { id: 10, name: 'Elvis', price: 20.00, image: '/images/product10.jpg'}
 ];
 
 // Function to update the cart counter

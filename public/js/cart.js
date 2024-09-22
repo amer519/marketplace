@@ -2,87 +2,115 @@
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // Cart display elements
-const cartContent = document.getElementById('cart-content');
+const cartItemsContainer = document.getElementById('cart-items');
 const cartTotalElement = document.getElementById('cart-total');
 
 // Function to render the cart items
 function renderCart() {
-    cartContent.innerHTML = ''; // Clear the previous cart content
+    cartItemsContainer.innerHTML = ''; // Clear the previous cart content
     let total = 0; // Initialize the total cost
+
+    // Update the cart counter
+    updateCartCounter();
 
     // Check if the cart is empty
     if (cart.length === 0) {
-        cartContent.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+        cartItemsContainer.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
         cartTotalElement.innerText = ''; // No total to show
         return; // Exit the function since the cart is empty
     }
 
     // Loop through the cart items and display them
-    cart.forEach(product => {
+    cart.forEach((product, index) => {
         total += product.price * product.quantity; // Update the total price
 
         // Use a default image if product.image is missing or undefined
         const productImage = product.image ? product.image : '/images/default.jpg'; // Fallback image
 
-        // Create a product row for each item
-        const productRow = document.createElement('div');
-        productRow.classList.add('cart-item');
+        // Create cart item container
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
 
-        productRow.innerHTML = `
-            <div class="product-details">
-                <img src="${productImage}" alt="${product.name} Image">
-                <p>${product.name}</p>
-            </div>
-            <div class="quantity-controls">
-                <button class="decrease-quantity" data-id="${product.id}">−</button>
-                <span class="quantity">${product.quantity}</span>
-                <button class="increase-quantity" data-id="${product.id}">+</button>
-            </div>
-            <p class="product-total-price">$${(product.price * product.quantity).toFixed(2)}</p>
-            <button class="btn btn-danger remove-item" data-id="${product.id}">X</button>
-        `;
+        // Product Image
+        const img = document.createElement('img');
+        img.src = productImage;
+        img.alt = product.name;
+        img.classList.add('cart-item-image');
 
-        // Append the product row to the cart content
-        cartContent.appendChild(productRow);
+        // Item Details Container
+        const details = document.createElement('div');
+        details.classList.add('cart-item-details');
+
+        // Product Title
+        const title = document.createElement('p');
+        title.classList.add('cart-item-title');
+        title.textContent = product.name;
+
+        // Product Price
+        const price = document.createElement('p');
+        price.classList.add('cart-item-price');
+        price.textContent = `$${product.price.toFixed(2)}`;
+
+        // Quantity Controls
+        const quantityControls = document.createElement('div');
+        quantityControls.classList.add('cart-item-quantity');
+
+        const decreaseBtn = document.createElement('button');
+        decreaseBtn.classList.add('quantity-decrease');
+        decreaseBtn.textContent = '−';
+        decreaseBtn.addEventListener('click', () => {
+            adjustQuantity(product.id, -1);
+        });
+
+        const quantityInput = document.createElement('input');
+        quantityInput.type = 'text';
+        quantityInput.value = product.quantity;
+        quantityInput.readOnly = true;
+
+        const increaseBtn = document.createElement('button');
+        increaseBtn.classList.add('quantity-increase');
+        increaseBtn.textContent = '+';
+        increaseBtn.addEventListener('click', () => {
+            adjustQuantity(product.id, 1);
+        });
+
+        const removeBtn = document.createElement('button');
+        removeBtn.classList.add('cart-item-remove');
+        removeBtn.innerHTML = '&times;';
+        removeBtn.setAttribute('aria-label', 'Remove item');
+        removeBtn.addEventListener('click', () => {
+            removeFromCart(product.id);
+        });
+
+        // Append controls
+        quantityControls.appendChild(decreaseBtn);
+        quantityControls.appendChild(quantityInput);
+        quantityControls.appendChild(increaseBtn);
+        quantityControls.appendChild(removeBtn);
+
+        // Append details
+        details.appendChild(title);
+        details.appendChild(price);
+        details.appendChild(quantityControls);
+
+        // Append image and details to cart item
+        cartItem.appendChild(img);
+        cartItem.appendChild(details);
+
+        // Append cart item to cart items container
+        cartItemsContainer.appendChild(cartItem);
     });
 
     // Update the total amount in the cart
     cartTotalElement.innerText = `Total: $${total.toFixed(2)}`;
 
-    // Attach event listeners for quantity adjustment and item removal
-    attachEventListeners();
-}
-
-// Function to attach event listeners to the buttons
-function attachEventListeners() {
-    // Increase quantity buttons
-    const increaseButtons = document.querySelectorAll('.increase-quantity');
-    increaseButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            adjustQuantity(button.getAttribute('data-id'), 1);
-        });
-    });
-
-    // Decrease quantity buttons
-    const decreaseButtons = document.querySelectorAll('.decrease-quantity');
-    decreaseButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            adjustQuantity(button.getAttribute('data-id'), -1);
-        });
-    });
-
-    // Remove item buttons
-    const removeButtons = document.querySelectorAll('.remove-item');
-    removeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            removeFromCart(button.getAttribute('data-id'));
-        });
-    });
+    // Save updated cart to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 // Function to adjust the quantity of an item
 function adjustQuantity(productId, change) {
-    const productIndex = cart.findIndex(product => product.id == productId);
+    const productIndex = cart.findIndex(product => product.id === productId);
 
     if (productIndex !== -1) {
         cart[productIndex].quantity += change;
@@ -103,13 +131,22 @@ function adjustQuantity(productId, change) {
 // Function to remove an item from the cart
 function removeFromCart(productId) {
     // Filter out the product with the given ID
-    cart = cart.filter(product => product.id != productId);
+    cart = cart.filter(product => product.id !== productId);
 
     // Update the cart in localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
 
     // Re-render the cart
     renderCart();
+}
+
+// Function to update the cart counter
+function updateCartCounter() {
+    const cartCounter = document.querySelector('.cart-counter');
+    if (cartCounter) {
+        const totalQuantity = cart.reduce((sum, product) => sum + product.quantity, 0);
+        cartCounter.textContent = totalQuantity;
+    }
 }
 
 // Render the cart when the page loads
